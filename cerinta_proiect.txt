@@ -1,0 +1,36 @@
+Descriere:
+  Dezvoltare aplicatie n-tier de tipul client/server/datastore care sa foloseasca baze de date in partea de back-end.
+  Sistemul de baze de date utilizat poate fi orice tip de sistem de baze de date relational.
+  Partea de front-end (interfata cu utilizatorul) poate fi dezvoltata folosind orice tehnologie si limbaj de programare.
+  Interfata cu utilizatorul poate lua forma unei aplicatii desktop, mobile sau a unei aplicatii web.
+
+Obiective urmarite:
+  - prelucrarea unei baze de date prin intermediul aplicatiei front-end
+  - baza de date trebuie sa contina cel putin trei tabele
+  - intre tabele trebuie sa existe cel putin o legatura one-to-one si cel putin o legatura one-to-many
+  - [optional] folosirea legaturilor many-to-many
+  - trebuie sa existe cel putin o constrangere de integritate de tip check
+  - aplicatia front-end trebuie sa ofere posibilitatea de a vizualiza/adauga/modifica/sterge inregistrari din tabele
+  - aplicatia front-end trebuie sa ofere utilizatorului posibilitatea sa introduca o serie de parametri in functie de
+    care vor fi preluate si afisate datele in interfata grafica
+  - preluarea datelor din aplicatia server trebuie facuta folosind secvente SQL
+  - [optional] autentificarea si autorizarea utilizatorilor folosind user/password
+
+Documentatie (~5 pagini):
+  - descrierea proiectului
+  - structura si inter-relationarea tabelelor
+  - descrierea constrangerilor folosite
+  - descrierea modalitatii de conectare la baza de date din aplicatie
+  - 1-2 capturi de ecran concludente din interfata aplicatiei
+
+Fiecare student va uploada pe Moodle o arhiva .zip ce va cuprinde:
+  - documentatia (format .pdf)
+  - sursele aplicatiei + executabilul (dupa caz)
+  - script de creare tabele cu contrangerile aferente
+  - script de populare a tabelelor bazei de date cu date de test
+  - DMD-ul generat de Data Modeler (doar pentru studentii de la Calculatoare)
+
+Mentiuni:
+  - un singur student/tema
+
+Termen predare: saptamana 14
