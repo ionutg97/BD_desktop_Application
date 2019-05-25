@@ -47,17 +47,6 @@ alter table  liste_prezenta add constraint id_curs_liste_prezenta_fk foreign key
 alter table  liste_prezenta add constraint id_laborator_liste_prezenta_fk foreign key (id_laborator) references Laboratoare(id_laborator); 
 
 
-CREATE SEQUENCE liste_prezenta_seq START WITH 200 NOCACHE ORDER;
-
-CREATE OR REPLACE TRIGGER liste_prezenta_trg BEFORE
-    INSERT ON liste_prezenta
-    FOR EACH ROW
-    WHEN ( new.id_liste_prezenta IS NULL )
-BEGIN
-    :new.id_liste_prezenta := liste_prezenta_seq.nextval;
-END;
-/
-
 -- creare tabela prezenta
 create table Prezenta (id_prezenta Number(5) not null, nota number Check(nota > 1 and nota < 11),observatii varchar(255),
     id_student int,id_profesor int,id_curs int,id_laborator int, id_liste_prezenta int);
@@ -79,6 +68,17 @@ BEGIN
 END;
 /
 
+
+CREATE SEQUENCE liste_prezenta_seq START WITH 200 NOCACHE ORDER;
+
+CREATE OR REPLACE TRIGGER liste_prezenta_trg BEFORE
+    INSERT ON liste_prezenta
+    FOR EACH ROW
+    WHEN ( new.id_liste_prezenta IS NULL )
+BEGIN
+    :new.id_liste_prezenta := liste_prezenta_seq.nextval;
+END;
+/   
 
 
 

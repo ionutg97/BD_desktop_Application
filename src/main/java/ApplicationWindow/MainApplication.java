@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,15 +19,14 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import MainApplication.ConnectionClass;
 import net.proteanit.sql.DbUtils;
-
-import javax.swing.JList;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 public class MainApplication {
 
@@ -38,7 +38,7 @@ public class MainApplication {
 	private JTextField textField_weekNew;
 	private JTextField textField_coursNew;
 	private JTextField textField_weekCours;
-	private JTextField textField_teacherCours;
+	private JTextField textField_Cours_name_open;
 	private JTextField textField_LaboratoryName;
 	private JTable table;
 	private JTextField textField_StudentName_stud;
@@ -54,6 +54,14 @@ public class MainApplication {
 	private JTextField textField_week_lab;
 	private JTextField textField_group_lab;
 	private JTextField textField_week_stud;
+	private JTextField textField_week_upd;
+	private JTextField textField_stud_name_upd;
+	private JTextField textField_cours_name_upd;
+	private JTextField textField_grades_upd;
+	private JTextField textField_notification_upd;
+	private JTextField textField_lab_name_upd;
+	private JTextField textField_grades_lab_upd;
+	private JTextField textField_notif_lab_upd;
 
 	/**
 	 * Launch the application.
@@ -107,10 +115,7 @@ public class MainApplication {
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 
-		JMenuItem mntmOpenFile = new JMenuItem("Open File");
-		mnFile.add(mntmOpenFile);
-
-		JMenuItem mntmNew = new JMenuItem("New");
+		JMenuItem mntmNew = new JMenuItem("New List");
 
 		JMenuItem mntmDeleteList = new JMenuItem("Delete List");
 
@@ -151,7 +156,7 @@ public class MainApplication {
 		OpenList.add(lblNewLabel);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(30, 64, 382, 149);
+		tabbedPane.setBounds(30, 64, 465, 149);
 		OpenList.add(tabbedPane);
 
 		JPanel panel_1 = new JPanel();
@@ -171,10 +176,10 @@ public class MainApplication {
 		lblCoursName.setBounds(27, 40, 98, 22);
 		panel_1.add(lblCoursName);
 
-		textField_teacherCours = new JTextField();
-		textField_teacherCours.setBounds(137, 48, 116, 22);
-		panel_1.add(textField_teacherCours);
-		textField_teacherCours.setColumns(10);
+		textField_Cours_name_open = new JTextField();
+		textField_Cours_name_open.setBounds(137, 48, 116, 22);
+		panel_1.add(textField_Cours_name_open);
+		textField_Cours_name_open.setColumns(10);
 
 		JButton btnView = new JButton("View");
 
@@ -187,7 +192,7 @@ public class MainApplication {
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setLayout(null);
-		panel_3.setBounds(0, 0, 377, 119);
+		panel_3.setBounds(0, 0, 460, 119);
 		panel_2.add(panel_3);
 
 		JLabel label = new JLabel("Week");
@@ -223,7 +228,7 @@ public class MainApplication {
 		panel_3.add(textField_group_lab);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(30, 248, 382, 100);
+		scrollPane.setBounds(0, 248, 507, 100);
 		OpenList.add(scrollPane);
 
 		table = new JTable();
@@ -376,76 +381,197 @@ public class MainApplication {
 		lblNewLabel_messageError_Delete.setBounds(66, 289, 411, 29);
 		DeleteList.add(lblNewLabel_messageError_Delete);
 
+		JLabel lblNewLabel_9 = new JLabel("Delete list attendance");
+		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_9.setBounds(66, 13, 411, 31);
+		DeleteList.add(lblNewLabel_9);
+
 		final JPanel StudentAdd = new JPanel();
 		layeredPane.add(StudentAdd, "name_1098913359960");
 		StudentAdd.setLayout(null);
 
 		JLabel lblStudentName = new JLabel("Student Name");
-		lblStudentName.setBounds(127, 25, 119, 27);
+		lblStudentName.setBounds(127, 43, 119, 27);
 		StudentAdd.add(lblStudentName);
 
 		textField_StudentName_stud = new JTextField();
-		textField_StudentName_stud.setBounds(255, 27, 116, 22);
+		textField_StudentName_stud.setBounds(255, 45, 116, 22);
 		StudentAdd.add(textField_StudentName_stud);
 		textField_StudentName_stud.setColumns(10);
 
 		JLabel lblNewLabel_5 = new JLabel("Laboratory");
-		lblNewLabel_5.setBounds(127, 65, 119, 22);
+		lblNewLabel_5.setBounds(127, 83, 119, 22);
 		StudentAdd.add(lblNewLabel_5);
 
 		textField_name_lab_stud = new JTextField();
-		textField_name_lab_stud.setBounds(255, 65, 116, 22);
+		textField_name_lab_stud.setBounds(255, 83, 116, 22);
 		StudentAdd.add(textField_name_lab_stud);
 		textField_name_lab_stud.setColumns(10);
 
 		JLabel lblNewLabel_7 = new JLabel("Cours");
-		lblNewLabel_7.setBounds(127, 99, 119, 27);
+		lblNewLabel_7.setBounds(127, 117, 119, 27);
 		StudentAdd.add(lblNewLabel_7);
 
 		textField_CoursName_stud = new JTextField();
-		textField_CoursName_stud.setBounds(255, 101, 116, 22);
+		textField_CoursName_stud.setBounds(255, 119, 116, 22);
 		StudentAdd.add(textField_CoursName_stud);
 		textField_CoursName_stud.setColumns(10);
 
 		JLabel lblNewLabel_TeacherName = new JLabel("Teacher Name");
-		lblNewLabel_TeacherName.setBounds(127, 139, 88, 22);
+		lblNewLabel_TeacherName.setBounds(127, 157, 88, 22);
 		StudentAdd.add(lblNewLabel_TeacherName);
 
 		textField_TeacherName_stud = new JTextField();
-		textField_TeacherName_stud.setBounds(255, 139, 116, 22);
+		textField_TeacherName_stud.setBounds(255, 157, 116, 22);
 		StudentAdd.add(textField_TeacherName_stud);
 		textField_TeacherName_stud.setColumns(10);
 
 		JLabel lblGroup_1 = new JLabel("Group");
-		lblGroup_1.setBounds(127, 174, 56, 16);
+		lblGroup_1.setBounds(127, 192, 56, 16);
 		StudentAdd.add(lblGroup_1);
 
 		textField_Group_stud = new JTextField();
-		textField_Group_stud.setBounds(255, 174, 116, 22);
+		textField_Group_stud.setBounds(255, 192, 116, 22);
 		StudentAdd.add(textField_Group_stud);
 		textField_Group_stud.setColumns(10);
 
 		JButton btn_insert_attendance_lab = new JButton("Insert laboratory attendance");
 
-		btn_insert_attendance_lab.setBounds(130, 267, 223, 22);
+		btn_insert_attendance_lab.setBounds(130, 295, 223, 22);
 		StudentAdd.add(btn_insert_attendance_lab);
 
 		JButton btnInsertCoursAttendance = new JButton("Insert cours attendance");
-		btnInsertCoursAttendance.setBounds(127, 225, 226, 25);
+		btnInsertCoursAttendance.setBounds(127, 253, 226, 25);
 		StudentAdd.add(btnInsertCoursAttendance);
 
-		JLabel lblNewLabel_MessageError = new JLabel("");
-		lblNewLabel_MessageError.setBounds(127, 316, 353, 33);
-		StudentAdd.add(lblNewLabel_MessageError);
+		final JLabel lblNewLabel_MessageError_add = new JLabel("");
+		lblNewLabel_MessageError_add.setBounds(127, 335, 353, 33);
+		StudentAdd.add(lblNewLabel_MessageError_add);
 
 		JLabel lblWeek_1 = new JLabel("Week");
-		lblWeek_1.setBounds(127, 203, 56, 16);
+		lblWeek_1.setBounds(127, 221, 56, 16);
 		StudentAdd.add(lblWeek_1);
 
 		textField_week_stud = new JTextField();
-		textField_week_stud.setBounds(255, 200, 116, 22);
+		textField_week_stud.setBounds(255, 218, 116, 22);
 		StudentAdd.add(textField_week_stud);
 		textField_week_stud.setColumns(10);
+
+		JLabel lblAddStudentOn = new JLabel("Add Student on attendance list");
+		lblAddStudentOn.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAddStudentOn.setBounds(127, 13, 281, 27);
+		StudentAdd.add(lblAddStudentOn);
+
+		final JPanel UpdateStudent = new JPanel();
+		layeredPane.add(UpdateStudent, "name_3970617814396");
+		UpdateStudent.setLayout(null);
+
+		JLabel lblNewLabel_1 = new JLabel("Week");
+		lblNewLabel_1.setBounds(81, 40, 116, 19);
+		UpdateStudent.add(lblNewLabel_1);
+
+		textField_week_upd = new JTextField();
+		textField_week_upd.setBounds(233, 37, 116, 22);
+		UpdateStudent.add(textField_week_upd);
+		textField_week_upd.setColumns(10);
+
+		JLabel lblStudentName_1 = new JLabel("Student name");
+		lblStudentName_1.setBounds(81, 75, 116, 19);
+		UpdateStudent.add(lblStudentName_1);
+
+		textField_stud_name_upd = new JTextField();
+		textField_stud_name_upd.setColumns(10);
+		textField_stud_name_upd.setBounds(233, 72, 116, 22);
+		UpdateStudent.add(textField_stud_name_upd);
+
+		JTabbedPane tabbedPane_2 = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane_2.setBounds(81, 130, 376, 203);
+		UpdateStudent.add(tabbedPane_2);
+
+		JPanel panel_9 = new JPanel();
+		tabbedPane_2.addTab("Cours", null, panel_9, null);
+		panel_9.setLayout(null);
+
+		JLabel lblNewLabel_8 = new JLabel("Cours name");
+		lblNewLabel_8.setBounds(33, 13, 116, 16);
+		panel_9.add(lblNewLabel_8);
+
+		textField_cours_name_upd = new JTextField();
+		textField_cours_name_upd.setBounds(187, 10, 136, 22);
+		panel_9.add(textField_cours_name_upd);
+		textField_cours_name_upd.setColumns(10);
+
+		JLabel lblGrades = new JLabel("Grades");
+		lblGrades.setBounds(33, 45, 116, 16);
+		panel_9.add(lblGrades);
+
+		textField_grades_upd = new JTextField();
+		textField_grades_upd.setColumns(10);
+		textField_grades_upd.setBounds(187, 42, 136, 22);
+		panel_9.add(textField_grades_upd);
+
+		JLabel lblNotifications = new JLabel("Notifications");
+		lblNotifications.setBounds(33, 77, 116, 16);
+		panel_9.add(lblNotifications);
+
+		textField_notification_upd = new JTextField();
+		textField_notification_upd.setColumns(10);
+		textField_notification_upd.setBounds(187, 74, 136, 22);
+		panel_9.add(textField_notification_upd);
+
+		JButton btnNewButton_add_grades = new JButton("Add Grades");
+		btnNewButton_add_grades.setBounds(33, 122, 116, 25);
+		panel_9.add(btnNewButton_add_grades);
+
+		JButton btnAddNotifications = new JButton("Add Notifications");
+
+		btnAddNotifications.setBounds(187, 122, 136, 25);
+		panel_9.add(btnAddNotifications);
+
+		JPanel panel_10 = new JPanel();
+		tabbedPane_2.addTab("Laborator", null, panel_10, null);
+		panel_10.setLayout(null);
+
+		textField_lab_name_upd = new JTextField();
+		textField_lab_name_upd.setColumns(10);
+		textField_lab_name_upd.setBounds(197, 13, 136, 22);
+		panel_10.add(textField_lab_name_upd);
+
+		JLabel lblLaboratoryName_1 = new JLabel("Laboratory name");
+		lblLaboratoryName_1.setBounds(43, 16, 116, 16);
+		panel_10.add(lblLaboratoryName_1);
+
+		JLabel label_6 = new JLabel("Grades");
+		label_6.setBounds(43, 48, 116, 16);
+		panel_10.add(label_6);
+
+		textField_grades_lab_upd = new JTextField();
+		textField_grades_lab_upd.setColumns(10);
+		textField_grades_lab_upd.setBounds(197, 45, 136, 22);
+		panel_10.add(textField_grades_lab_upd);
+
+		JLabel label_7 = new JLabel("Notifications");
+		label_7.setBounds(43, 80, 116, 16);
+		panel_10.add(label_7);
+
+		textField_notif_lab_upd = new JTextField();
+		textField_notif_lab_upd.setColumns(10);
+		textField_notif_lab_upd.setBounds(197, 77, 136, 22);
+		panel_10.add(textField_notif_lab_upd);
+
+		JButton button_add_grad_lab = new JButton("Add Grades");
+
+		button_add_grad_lab.setBounds(43, 125, 116, 25);
+		panel_10.add(button_add_grad_lab);
+
+		JButton button_add_notif_lab = new JButton("Add Notifications");
+
+		button_add_notif_lab.setBounds(197, 125, 136, 25);
+		panel_10.add(button_add_notif_lab);
+
+		final JLabel lblNewLabel_messageError_Update = new JLabel("");
+		lblNewLabel_messageError_Update.setBounds(81, 346, 376, 41);
+		UpdateStudent.add(lblNewLabel_messageError_Update);
 
 		// -----------------------------------Evenimente pe Menu---------------
 
@@ -469,6 +595,14 @@ public class MainApplication {
 			}
 		});
 		mnCreateList.add(mntmOpenList);
+
+		JMenuItem mntmUpdateInfo = new JMenuItem("Update Info");
+		mntmUpdateInfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				swichPanels(UpdateStudent, layeredPane);
+			}
+		});
+		mnCreateList.add(mntmUpdateInfo);
 
 		mntmExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -498,7 +632,7 @@ public class MainApplication {
 								+ " (select id_laborator from Laboratoare where nume_laborator = '"
 								+ textField_laboratoryNew.getText() + "')" + ")";
 						statement.executeUpdate(sql);
-						lblNewLabel_3.setText("The attendance list was created with successful!");
+						lblNewLabel_3.setText("The attendance list for Laboratory "+textField_laboratoryNew.getText()+ "was created with successful!");
 					} else if (!textField_coursNew.getText().isEmpty()) {
 						String sql = "insert into liste_prezenta(nume_liste_prezenta,id_grupa,saptamana,id_curs,id_laborator) values ('Prezenta curs "
 								+ textField_coursNew.getText() + " " + textField_groupNew.getText() + " "
@@ -506,7 +640,7 @@ public class MainApplication {
 								+ "(select id_curs from Cursuri where nume_curs = '" + textField_coursNew.getText()
 								+ "')" + ",null)";
 						statement.executeUpdate(sql);
-						lblNewLabel_3.setText("The attendance list was created with successful!");
+						lblNewLabel_3.setText("The attendance lis for cours: "+textField_coursNew.getText() +" was created with successful!");
 					}
 
 				} catch (SQLException se) {
@@ -518,7 +652,7 @@ public class MainApplication {
 			}
 		});
 
-		// -------------------------------------- vizuallizare lista laborator
+		// -------------------------------------- vizualizare lista laborator
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!textField_LaboratoryName.getText().isEmpty() && !textField_group_lab.getText().isEmpty()
@@ -526,16 +660,7 @@ public class MainApplication {
 					try {
 						statement = connect.createStatement();
 
-						String sqlListaPrezenta = "select lp.id_liste_prezenta from liste_prezenta lp where"
-								+ " lp.saptamana=" + textField_week_lab.getText()
-								+ " and lp.id_grupa = (select id_grupa from grupe where nume_grupa = '"
-								+ textField_group_lab.getText() + "')"
-								+ "and lp.id_laborator= (select id_laborator from laboratoare where nume_laborator = '"
-								+ textField_LaboratoryName.getText() + "'))";
-						// ResultSet resultQuery = statement.executeQuery(sqlListaPrezenta);
-						// int idPrezenta=resultQuery.getInt(1);
-
-						String sql = "select l.nume_laborator, t.nume_profesor,s.nume_student, lp.saptamana"
+						String sql = "select l.nume_laborator, t.nume_profesor,s.nume_student, lp.saptamana,p.nota,p.observatii"
 								+ " from liste_prezenta lp, profesori t, prezenta p, studenti s, laboratoare l"
 								+ " where lp.id_liste_prezenta=p.id_liste_prezenta and p.id_liste_prezenta= ("
 								+ "select lp.id_liste_prezenta from liste_prezenta lp where" + " lp.saptamana="
@@ -563,15 +688,17 @@ public class MainApplication {
 		// ----------------------------------------vizualizare lista cursuri
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!textField_weekCours.getText().isEmpty() && !textField_teacherCours.getText().isEmpty()) {
+				if (!textField_weekCours.getText().isEmpty() && !textField_Cours_name_open.getText().isEmpty()) {
 					try {
 						statement = connect.createStatement();
-						String sql = "select t.nume_profesor,s.nume_student, lp.saptamana"
-								+ " from liste_prezenta lp, profesori t, prezenta p, studenti s"
+						String sql = "select c.nume_curs,t.nume_profesor,s.nume_student, lp.saptamana,p.nota,p.observatii"
+								+ " from liste_prezenta lp, profesori t, prezenta p, studenti s,cursuri c"
 								+ " where lp.id_liste_prezenta=p.id_liste_prezenta and lp.saptamana="
 								+ textField_weekCours.getText()
-								+ " and t.id_profesor= (select id_profesor from Profesori where nume_profesor='"
-								+ textField_teacherCours.getText() + "')" + " and p.id_student=s.id_student";
+								+ " and lp.id_curs= (select id_curs from cursuri where nume_curs='"
+								+ textField_Cours_name_open.getText() + "')" + " and p.id_student=s.id_student "
+								+ " and p.id_profesor= t.id_profesor" + "    and p.id_curs=c.id_curs"
+								+ "    order by lp.saptamana asc";
 						ResultSet resultQuery = statement.executeQuery(sql);
 						table.setModel(DbUtils.resultSetToTableModel(resultQuery));
 					} catch (SQLException se) {
@@ -604,13 +731,18 @@ public class MainApplication {
 								+ "' and lp.id_curs= (select id_curs from cursuri where nume_curs = '"
 								+ textField_CoursName_stud.getText() + "')))";
 
-						statement.executeUpdate(sql);
+						int result = statement.executeUpdate(sql);
+						if (result > 0)
+							lblNewLabel_MessageError_add.setText("Add student on Cours list with success!");
+						else
+							lblNewLabel_MessageError_add.setText("Fail add Cours list!");
 					} catch (SQLException se) {
 						// Handle errors for JDBC
 						lblNewLabel_statusView.setText(se.getMessage());
 						se.printStackTrace();
 					}
-				}
+				} else
+					lblNewLabel_MessageError_add.setText("Complet all field");
 
 			}
 		});
@@ -635,25 +767,29 @@ public class MainApplication {
 								+ "') and lp.id_laborator= (select id_laborator from laboratoare where nume_laborator = '"
 								+ textField_name_lab_stud.getText() + "')))";
 
-						statement.executeUpdate(sql);
+						int result = statement.executeUpdate(sql);
+						if (result > 0)
+							lblNewLabel_MessageError_add.setText("Add student on Laboratory list with success!");
+						else
+							lblNewLabel_MessageError_add.setText("Fail add Laboratory list!");
+
 					} catch (SQLException se) {
 						// Handle errors for JDBC
 						lblNewLabel_statusView.setText(se.getMessage());
 						se.printStackTrace();
 					}
-				}
+				} else
+					lblNewLabel_MessageError_add.setText("Complet all field");
 			}
 		});
+
+		// ----------------------------------------------------------------------------------
 
 		// ---------------------------Sterge lista prezenta curs------------------------
 		button_delete_cours.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!textField_cours_delCours.getText().isEmpty() && !textField_week_delCours.getText().isEmpty()) {
 					try {
-						// statement = connect.createStatement();
-						// String stg="select * from profesori";
-						// ResultSet res = statement.executeQuery(stg);
-						// ResultSet x=res;
 						statement = connect.createStatement();
 						String sql = "delete from prezenta where id_liste_prezenta= ( select lp.id_liste_prezenta from liste_prezenta lp where "
 								+ "lp.saptamana= " + textField_week_delCours.getText()
@@ -664,10 +800,14 @@ public class MainApplication {
 								+ "lp.saptamana= " + textField_week_delCours.getText()
 								+ " and lp.id_curs= (select id_curs from cursuri where nume_curs = '"
 								+ textField_cours_delCours.getText() + "'))";
-						statement.executeUpdate(sql1);
-						// if (response)
-						lblNewLabel_messageError_Delete.setText("The list was deleted week "
-								+ textField_week_delCours.getText() + " Cours: " + textField_cours_delCours.getText());
+						int result = statement.executeUpdate(sql1);
+						if (result > 0)
+							lblNewLabel_messageError_Delete
+									.setText("The list was deleted week " + textField_week_delCours.getText()
+											+ " Cours: " + textField_cours_delCours.getText());
+						else
+							lblNewLabel_messageError_Delete
+									.setText("The list " + textField_cours_delCours.getText() + " was NOT deleted!");
 					} catch (SQLException se) {
 						// Handle errors for JDBC
 						lblNewLabel_messageError_Delete.setText(se.getMessage());
@@ -688,19 +828,30 @@ public class MainApplication {
 						&& !textField_week_lab_del.getText().isEmpty()) {
 					try {
 						statement = connect.createStatement();
+						connect.setAutoCommit(false);
+
 						String sql = "delete  from prezenta where id_liste_prezenta= ( select lp.id_liste_prezenta from liste_prezenta lp where "
 								+ "lp.saptamana= " + textField_week_lab_del.getText()
 								+ "  and lp.id_grupa = (select id_grupa from grupe where nume_grupa = '"
 								+ textField_group_lab_dell.getText() + "')"
 								+ " and lp.id_laborator= (select id_laborator from laboratoare where nume_laborator = '"
 								+ textField_nume_lab_del.getText() + "'))";
+						statement.executeUpdate(sql);
 						String sql1 = "delete  from liste_prezenta where id_liste_prezenta= ( select lp.id_liste_prezenta from liste_prezenta lp where "
 								+ "lp.saptamana= " + textField_week_lab_del.getText()
 								+ "  and lp.id_grupa = (select id_grupa from grupe where nume_grupa = '"
 								+ textField_group_lab_dell.getText() + "')"
 								+ " and lp.id_laborator= (select id_laborator from laboratoare where nume_laborator = '"
 								+ textField_nume_lab_del.getText() + "'))";
-						statement.executeUpdate(sql1);
+
+						int result = statement.executeUpdate(sql1);
+						if (result > 0)
+							lblNewLabel_messageError_Delete.setText("The list  was "
+									+ textField_group_lab_dell.getText() + " week " + textField_week_lab_del.getText()
+									+ "laboratory " + textField_nume_lab_del.getText() + " deleted with success!");
+						else
+							lblNewLabel_messageError_Delete.setText("The list " + textField_nume_lab_del.getText() +  " was NOT deleted!");
+
 					} catch (SQLException se) {
 						// Handle errors for JDBC
 						lblNewLabel_messageError_Delete.setText(se.getMessage());
@@ -712,5 +863,130 @@ public class MainApplication {
 				}
 			}
 		});
+		// ---------------------------------------------------------------------------------------------------------
+
+		// ---------------------------Update ------------------------------
+		// ------laborator nota
+		button_add_grad_lab.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (Integer.parseInt(textField_grades_lab_upd.getText()) >= 5
+						&& Integer.parseInt(textField_grades_lab_upd.getText()) <= 10) {
+					try {
+						statement = connect.createStatement();
+						connect.setAutoCommit(false);
+
+						String sql = "update  prezenta set nota=" + Integer.parseInt(textField_grades_lab_upd.getText())
+								+ "  where id_liste_prezenta= (select id_liste_prezenta from liste_prezenta where saptamana= '"
+								+ textField_week_upd.getText()
+								+ "' and id_laborator= (select id_laborator from laboratoare where nume_laborator = '"
+								+ textField_lab_name_upd.getText()
+								+ "' )) and id_student=(select id_student from studenti where nume_student='"
+								+ textField_stud_name_upd.getText() + "')";
+
+						int response = statement.executeUpdate(sql);
+						connect.commit();
+						if (response != 0)
+							lblNewLabel_messageError_Update.setText("Update laboratory Grades");
+						else
+							lblNewLabel_messageError_Update.setText("Update Error!");
+					} catch (SQLException se) {
+						// Handle errors for JDBC
+						lblNewLabel_messageError_Update.setText(se.getMessage());
+						se.printStackTrace();
+					}
+
+				}
+			}
+		});
+
+		// -----laborator observatii
+		button_add_notif_lab.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					statement = connect.createStatement();
+					connect.setAutoCommit(false);
+
+					String sql = "update  prezenta set observatii=' " + textField_notif_lab_upd.getText()
+							+ "'  where id_liste_prezenta= (select id_liste_prezenta from liste_prezenta where saptamana= "
+							+ textField_week_upd.getText()
+							+ " and id_laborator= (select id_laborator from laboratoare where nume_laborator = '"
+							+ textField_lab_name_upd.getText()
+							+ "' )) and id_student=(select id_student from studenti where nume_student='"
+							+ textField_stud_name_upd.getText() + "')";
+
+					int response = statement.executeUpdate(sql);
+					connect.commit();
+					if (response != 0)
+						lblNewLabel_messageError_Update.setText("Update laboratory notification");
+					else
+						lblNewLabel_messageError_Update.setText("Update Error!");
+				} catch (SQLException se) {
+					// Handle errors for JDBC
+					lblNewLabel_messageError_Update.setText(se.getMessage());
+					se.printStackTrace();
+				}
+			}
+		});
+
+		// -------------------- Curs Nota---------
+		btnNewButton_add_grades.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (Integer.parseInt(textField_grades_upd.getText()) >= 5
+						&& Integer.parseInt(textField_grades_upd.getText()) <= 10) {
+					try {
+						statement = connect.createStatement();
+						connect.setAutoCommit(false);
+						String sql = "update  prezenta set nota=" + Integer.parseInt(textField_grades_upd.getText())
+								+ "  where id_liste_prezenta= (select id_liste_prezenta from liste_prezenta where saptamana= '"
+								+ textField_week_upd.getText()
+								+ "' and id_curs= (select id_curs from cursuri where nume_curs = '"
+								+ textField_cours_name_upd.getText()
+								+ "' )) and id_student=(select id_student from studenti where nume_student='"
+								+ textField_stud_name_upd.getText() + "')";
+
+						int response = statement.executeUpdate(sql);
+						connect.commit();
+						if (response != 0)
+							lblNewLabel_messageError_Update.setText("Update cours Grades");
+						else
+							lblNewLabel_messageError_Update.setText("Update Error!");
+					} catch (SQLException se) {
+						// Handle errors for JDBC
+						lblNewLabel_messageError_Update.setText(se.getMessage());
+						se.printStackTrace();
+					}
+				}
+			}
+		});
+
+		btnAddNotifications.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (!textField_notification_upd.getText().isEmpty()) {
+					try {
+						statement = connect.createStatement();
+						connect.setAutoCommit(false);
+						String sql = "update  prezenta set observatii= '" + textField_notification_upd.getText()
+								+ "'  where id_liste_prezenta= (select id_liste_prezenta from liste_prezenta where saptamana= '"
+								+ textField_week_upd.getText()
+								+ "' and id_curs= (select id_curs from cursuri where nume_curs = '"
+								+ textField_cours_name_upd.getText()
+								+ "' )) and id_student=(select id_student from studenti where nume_student='"
+								+ textField_stud_name_upd.getText() + "')";
+
+						int response = statement.executeUpdate(sql);
+						connect.commit();
+						if (response != 0)
+							lblNewLabel_messageError_Update.setText("Update cours Notification");
+						else
+							lblNewLabel_messageError_Update.setText("Update Error!");
+					} catch (SQLException se) {
+						// Handle errors for JDBC
+						lblNewLabel_messageError_Update.setText(se.getMessage());
+						se.printStackTrace();
+					}
+				}
+			}
+		});
+
 	}
 }
